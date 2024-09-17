@@ -10,9 +10,17 @@ jobs:
         os: [ubuntu-latest, macos-latest]
     steps:
       - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          cache: 'npm' # ускоряет повторные сборки
+
+      # - run: npm ci
+
+      # - run: npm test
 
       - run: make setup
 
       - run: make test
-      
+
       - run: make lint
