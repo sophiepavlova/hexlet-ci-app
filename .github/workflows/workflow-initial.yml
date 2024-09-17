@@ -8,19 +8,31 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
+
     steps:
-      - uses: actions/checkout@v4
-            - uses: actions/setup-node@v4
+      # Step 1: Check out the code from the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '18.x'
-          cache: 'npm' # ускоряет повторные сборки
+          cache: 'npm'  # speeds up subsequent builds
 
-      # - run: npm ci
+      # Step 3: Print Hello from Hexlet
+      - name: Print Hello from Hexlet
+        uses: hexlet-components/hello-from-hexlet-action@release
 
-      # - run: npm test
+      # Step 4: Install dependencies
+      - name: Install dependencies
+        run: make setup
 
-      - run: make setup
+      # Step 5: Run tests
+      - name: Run tests
+        run: make test
 
-      - run: make test
-
-      - run: make lint
+      # Step 6: Lint the code
+      - name: Lint code
+        run: make lint
